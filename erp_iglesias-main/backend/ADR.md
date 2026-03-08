@@ -1,7 +1,9 @@
 # ADR - Backend Architecture Decisions
 
 ## Estado
-Propuesto
+Propuestos 10
+
+Implementados 1
 
 ## Contexto
 
@@ -14,7 +16,7 @@ Este documento detalla las decisiones arquitectónicas propuestas para mejorar l
 ## ADR-001: Adopción de arquitectura en capas
 
 ### Estado
-Propuesto
+Implementado
 
 ### Contexto
 El backend tiene la lógica de negocio y el acceso a la base de datos mezclados con la exposición de endpoints.
