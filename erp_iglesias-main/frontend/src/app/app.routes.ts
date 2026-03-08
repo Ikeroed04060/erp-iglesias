@@ -3,10 +3,10 @@ import { authGuard } from './auth.guard';
 import { LoginComponent } from './login.component';
 import { DashboardComponent } from './dashboard.component';
 import { ChurchComponent } from './church.component';
-import { UsersComponent } from './users.component';
+import { UsersComponent } from './features/users/users.component';
 import { PeopleComponent } from './people.component';
 import { CoursesComponent } from './courses.component';
-import { EnrollmentsComponent } from './enrollments.component';
+import { EnrollmentsComponent } from './features/erollments/enrollments.component';
 import { OfferingsComponent } from './offerings.component';
 import { PaymentsComponent } from './payments.component';
 
