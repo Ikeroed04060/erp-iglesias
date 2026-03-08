@@ -1,14 +1,17 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": []
+    "baseUrl": "./src",  // Asegúrate de que baseUrl esté apuntando a ./src
+    "paths": {
+      "core/*": ["app/core/*"],  // Alias para la carpeta core/
+      "features/*": ["app/features/*"]  // Alias para la carpeta features/
+    }
   },
   "files": [
     "src/main.ts"
   ],
   "include": [
-    "src/**/*.d.ts"
+    "src/**/*.ts"  // Asegúrate de que todos los archivos .ts dentro de src/ sean incluidos
   ]
 }

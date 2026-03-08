@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { ApiService, Church } from './core/api.service';
+import { ApiService, Church} from 'core/api.service';
 import { NgIf } from '@angular/common';
 
 @Component({

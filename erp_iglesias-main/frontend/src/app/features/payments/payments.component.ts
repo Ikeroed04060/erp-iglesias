@@ -3,7 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { ApiService, Payment } from './core/api.service';
+import { ApiService, Payment } from 'core/api.service';
 import { NgIf } from '@angular/common';
 
 @Component({

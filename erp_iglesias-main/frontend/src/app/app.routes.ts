@@ -1,14 +1,14 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './auth.guard';
-import { LoginComponent } from './login.component';
-import { DashboardComponent } from './dashboard.component';
-import { ChurchComponent } from './church.component';
+import { authGuard } from './core/auth.guard';
+import { LoginComponent } from './core/login.component';
+import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { ChurchComponent } from './features/church/church.component';
 import { UsersComponent } from './features/users/users.component';
-import { PeopleComponent } from './people.component';
-import { CoursesComponent } from './courses.component';
+import { PeopleComponent } from './features/people/people.component';
+import { CoursesComponent } from './features/courses/courses.component';
 import { EnrollmentsComponent } from './features/erollments/enrollments.component';
-import { OfferingsComponent } from './offerings.component';
-import { PaymentsComponent } from './payments.component';
+import { OfferingsComponent } from './features/offerings/offerings.component';
+import { PaymentsComponent } from './features/payments/payments.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },

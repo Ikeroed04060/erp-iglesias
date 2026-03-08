@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { ApiService, Offering, OfferingPayload, Person } from './core/api.service';
+import { ApiService, Offering, OfferingPayload, Person } from 'core/api.service';
 import { CommonModule, NgIf } from '@angular/common';
 
 @Component({
