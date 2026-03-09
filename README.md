@@ -728,3 +728,122 @@ Su principal debilidad no está en la tecnología elegida, sino en la **organiza
 - `frontend/nginx.conf`
 
 ---
+## Pruebas funcionales
+
+### Objetivo
+
+Verificar que, después de los cambios arquitectónicos y de organización realizados en el proyecto, el sistema continúe funcionando correctamente, sin afectar la funcionalidad ni la usabilidad de los módulos principales.
+
+### Alcance
+
+Se realizaron pruebas funcionales sobre los siguientes módulos del sistema:
+
+- Panel de control
+- Personas
+- Cursos
+- Inscripciones
+- Ofrendas
+- Pagos
+
+### Resultado general
+
+Las pruebas ejecutadas evidencian que, después de los cambios realizados en backend y frontend, el sistema **mantiene su comportamiento funcional esperado**.  
+Los flujos principales de consulta, registro y visualización continúan operando con normalidad.  
+No se identificaron fallos visibles en la interacción del usuario ni rupturas funcionales asociadas a la refactorización aplicada.
+
+---
+
+## Casos de prueba ejecutados
+
+| ID | Módulo | Caso de prueba | Resultado esperado | Resultado obtenido | Estado |
+|---|---|---|---|---|---|
+| PF-01 | Dashboard | Visualizar resumen general del sistema | Mostrar métricas principales del sistema | Se visualizan correctamente personas, cursos, ofrendas y pagos pendientes | ✅ Exitoso |
+| PF-02 | Personas | Registrar una nueva persona y listar registros | Guardar persona y reflejarla en el listado | La persona fue registrada y se mostró mensaje de confirmación | ✅ Exitoso |
+| PF-03 | Cursos | Registrar un nuevo curso y visualizarlo en el listado | Guardar curso y mostrarlo en la tabla | El curso fue creado y aparece en el listado con estado activo | ✅ Exitoso |
+| PF-04 | Inscripciones | Seleccionar persona y curso para crear inscripción | Permitir asignación y generar inscripción pendiente | Se cargaron correctamente las opciones de persona y curso | ✅ Exitoso |
+| PF-05 | Inscripciones | Crear inscripción y verificar su visualización | Registrar inscripción con estado pendiente y pago iniciado | La inscripción fue creada y quedó visible en la tabla | ✅ Exitoso |
+| PF-06 | Ofrendas | Diligenciar formulario de ofrenda | Permitir el ingreso de persona, monto y concepto | El formulario cargó correctamente y recibió los datos esperados | ✅ Exitoso |
+| PF-07 | Ofrendas | Crear ofrenda y verificar registro | Registrar ofrenda con pago asociado | La ofrenda fue creada y quedó visible en el listado | ✅ Exitoso |
+| PF-08 | Pagos | Consultar listado de pagos generados | Visualizar pagos relacionados con inscripciones y ofrendas | Se listan correctamente pagos iniciados con sus acciones disponibles | ✅ Exitoso |
+
+---
+
+## Evidencias de pruebas
+
+### PF-01 - Dashboard operativo
+
+Se valida la visualización del panel principal del sistema.  
+Se evidencia el cargue correcto de indicadores de personas, cursos activos, ofrendas del mes y pagos pendientes.
+
+![alt text](image.png)
+
+---
+
+### PF-02 - Registro de personas
+
+Se valida el registro de una persona dentro del módulo de personas.  
+La interfaz muestra el formulario, el listado de registros existentes y el mensaje de confirmación **"Persona registrada"**, lo que evidencia que el flujo continúa funcionando correctamente.
+
+![alt text](image-1.png)
+![alt text](image-2.png)
+
+---
+
+### PF-03 - Registro de cursos
+
+Se valida la creación de un curso desde el módulo correspondiente.  
+Se evidencia que el curso queda almacenado y visible en el listado, junto con su precio y estado activo. También se muestra el mensaje **"Curso creado"**.
+
+![alt text](image-3.png)
+![alt text](image-4.png)
+---
+
+### PF-04 - Selección de datos para inscripción
+
+Se valida el comportamiento del formulario de inscripciones al cargar correctamente las personas disponibles para asignación.  
+Esta evidencia confirma que la integración entre datos de personas y cursos sigue operando con normalidad.
+
+![alt text](image-5.png)
+
+---
+
+### PF-05 - Creación de inscripción
+
+Se valida la creación de una inscripción.  
+La evidencia muestra que el sistema registra la inscripción y la deja visible en el listado con estado **PENDIENTE** y pago **INICIADO**, además de mostrar el mensaje **"Inscripción creada"**.
+
+![alt text](image-6.png)
+
+---
+
+### PF-06 - Diligenciamiento del formulario de ofrendas
+
+Se valida la carga y el diligenciamiento del formulario de ofrendas.  
+La interfaz permite seleccionar persona, ingresar monto y concepto, manteniendo la funcionalidad esperada del módulo.
+
+![alt text](image-7.png)
+---
+
+### PF-07 - Creación de ofrenda
+
+Se valida el registro exitoso de una ofrenda.  
+La evidencia muestra que el sistema agrega el nuevo registro al listado, conserva el estado **PENDIENTE**, genera pago asociado en estado **INICIADO** y presenta el mensaje **"Ofrenda creada"**.
+
+![alt text](image-8.png)
+
+---
+
+### PF-08 - Listado de pagos
+
+Se valida la visualización del módulo de pagos.  
+La tabla presenta correctamente los pagos generados por inscripciones y ofrendas, con su tipo, monto, estado, intentos y acciones disponibles.
+
+![alt text](image-9.png)
+---
+
+## Conclusión de pruebas
+
+Con base en las pruebas funcionales realizadas, se concluye que los cambios aplicados al proyecto **no afectaron negativamente la funcionalidad ni la usabilidad del sistema**.  
+Los módulos evaluados continúan operando correctamente, conservando los flujos principales de registro, visualización y gestión de información.
+
+En consecuencia, se evidencia que la refactorización y reorganización realizadas mantienen la estabilidad funcional del aplicativo.
