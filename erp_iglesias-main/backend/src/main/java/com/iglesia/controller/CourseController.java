@@ -3,6 +3,7 @@ package com.iglesia.controller;
 import com.iglesia.dtos.request.CourseRequest;
 import com.iglesia.dtos.response.CourseResponse;
 import com.iglesia.service.CourseService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class CourseController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
-    public CourseResponse create(@RequestBody CourseRequest request) {
+    public CourseResponse create(@Valid @RequestBody CourseRequest request) {
         return courseService.createCourse(request);
     }
 

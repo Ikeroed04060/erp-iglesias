@@ -3,6 +3,7 @@ package com.iglesia.controller;
 import com.iglesia.dtos.request.ChurchRequest;
 import com.iglesia.dtos.response.ChurchResponse;
 import com.iglesia.service.ChurchService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,7 @@ public class ChurchController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
-    public ChurchResponse create(@RequestBody ChurchRequest request) {
+    public ChurchResponse create(@Valid @RequestBody ChurchRequest request) {
         return churchService.createChurch(request);
     }
 

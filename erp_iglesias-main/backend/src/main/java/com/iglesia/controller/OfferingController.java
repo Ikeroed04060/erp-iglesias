@@ -3,6 +3,7 @@ package com.iglesia.controller;
 import com.iglesia.dtos.request.OfferingRequest;
 import com.iglesia.dtos.response.OfferingResponse;
 import com.iglesia.service.OfferingService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class OfferingController {
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENT')")
     @PostMapping
-    public OfferingResponse create(@RequestBody OfferingRequest request) {
+    public OfferingResponse create(@Valid @RequestBody OfferingRequest request) {
         return offeringService.createOffering(request);  // Delegamos la lógica al servicio
     }
 

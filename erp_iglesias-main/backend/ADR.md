@@ -1,9 +1,9 @@
 # ADR - Backend Architecture Decisions
 
 ## Estado
-Propuestos 2 
-Implementados 7
-Parcialmente implementados 1
+Propuestos 10
+
+Implementados 10
 
 ## Contexto
 
@@ -72,7 +72,7 @@ Usar **DTOs** (Data Transfer Objects) para desacoplar el modelo de persistencia 
 ## **ADR-003: Manejo global de excepciones**
 
 ### **Estado**
-Propuesto
+Implementado
 
 ### **Contexto**
 El backend aún no cuenta con un mecanismo centralizado para gestionar errores de validación, reglas de negocio o fallos inesperados, lo que puede producir respuestas inconsistentes.
@@ -212,7 +212,7 @@ Centralizar la configuración relacionada con autenticación, autorización y fi
 ## **ADR-008: Implementación de validaciones en DTO con Bean Validation**
 
 ### **Estado**
-Parcialmente implementado
+Implementado
 
 ### **Contexto**
 El backend define validaciones en los DTOs mediante anotaciones de Bean Validation, pero estas validaciones no se activan completamente en todos los endpoints al no utilizarse de forma consistente `@Valid` en los controladores.

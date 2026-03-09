@@ -1,4 +1,7 @@
 package com.iglesia.exception;
 
-public class FieldValidationError {
+public record FieldValidationError(
+        String field,
+        String message
+) {
 }
