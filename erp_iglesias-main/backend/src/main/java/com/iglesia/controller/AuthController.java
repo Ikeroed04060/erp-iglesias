@@ -1,54 +1,25 @@
 package com.iglesia.controller;
 
-import com.iglesia.model.AppUser;
-import com.iglesia.repository.AppUserRepository;
-import com.iglesia.config.JwtService;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.iglesia.dtos.request.LoginRequest;
+import com.iglesia.dtos.response.LoginResponse;
+import com.iglesia.service.AuthService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    private final AppUserRepository appUserRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtService jwtService;
+    private final AuthService authService;
 
-    public AuthController(AppUserRepository appUserRepository,
-                          PasswordEncoder passwordEncoder,
-                          JwtService jwtService) {
-        this.appUserRepository = appUserRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.jwtService = jwtService;
+    @Autowired
+    public AuthController(AuthService authService) {
+        this.authService = authService;
     }
 
     @PostMapping("/login")
     public LoginResponse login(@RequestBody LoginRequest request) {
-        AppUser user = appUserRepository.findByEmailIgnoreCase(request.email())
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciales inválidas"));
-
-        if (!user.isActive() || !passwordEncoder.matches(request.password(), user.getPasswordHash())) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciales inválidas");
-        }
-
-        String token = jwtService.generateToken(user);
-        return new LoginResponse(token, user.getEmail(), user.getRole().name());
+        String token = authService.login(request.email(), request.password());  // Delegamos la lógica al servicio
+        return new LoginResponse(token, request.email(), "USER");  // Asumimos que el rol es "USER", puede modificarse según sea necesario
     }
-
-
-    public record LoginRequest(
-        @Email @NotBlank String email,
-        @NotBlank String password
-    ) {}
-
-    public record LoginResponse(
-        String token,
-        String email,
-        String role
-    ) {}
-
 }

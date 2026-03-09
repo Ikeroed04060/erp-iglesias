@@ -1,30 +1,33 @@
 # ADR - Backend Architecture Decisions
 
 ## Estado
-Propuestos 10
-
-Implementados 1
+Propuestos 10  
+Implementados 6
 
 ## Contexto
 
-El sistema **ERP Iglesias** es una aplicación web construida con Spring Boot. En su backend, se detectaron varios problemas de arquitectura que afectan la organización del código, la mantenibilidad y la escalabilidad del sistema.
+El sistema **ERP Iglesias** es una aplicación web construida con **Spring Boot**. Durante su desarrollo, se han identificado varios problemas de arquitectura relacionados con la organización del código, la mantenibilidad, la escalabilidad y las buenas prácticas de desarrollo.
 
-Este documento detalla las decisiones arquitectónicas propuestas para mejorar la estructura y facilitar el crecimiento futuro del sistema.
+Este documento detalla las **decisiones arquitectónicas propuestas** para mejorar la estructura y facilitar el crecimiento futuro del sistema.
 
 ---
 
-## ADR-001: Adopción de arquitectura en capas
+## **ADR-001: Adopción de arquitectura en capas**
 
-### Estado
+### **Estado**
 Implementado
 
-### Contexto
-El backend tiene la lógica de negocio y el acceso a la base de datos mezclados con la exposición de endpoints.
+### **Contexto**
+El backend tenía la lógica de negocio y el acceso a la base de datos mezclados con la exposición de endpoints.
 
-### Decisión
+### **Decisión**
 Adoptar una **arquitectura en capas**: **Controller -> Service -> Repository**.
 
-### Consecuencias
+### **Acción**
+- Refactorizar los controladores para delegar la lógica de negocio a los servicios correspondientes.
+- Asegurar que cada capa tenga una única responsabilidad.
+
+### **Consecuencias**
 **Positivas**:
 - Mejor separación de responsabilidades.
 - Código más mantenible y escalable.
@@ -35,18 +38,22 @@ Adoptar una **arquitectura en capas**: **Controller -> Service -> Repository**.
 
 ---
 
-## ADR-002: Uso de DTOs
+## **ADR-002: Uso de DTOs**
 
-### Estado
-Propuesto
+### **Estado**
+Implementado
 
-### Contexto
-Las entidades del modelo de dominio se exponen directamente a través de la API, lo que genera un alto acoplamiento entre la capa de presentación y la persistencia.
+### **Contexto**
+Las entidades del modelo de dominio se exponían directamente a través de la API, lo que genera un alto acoplamiento entre la capa de presentación y la persistencia.
 
-### Decisión
+### **Decisión**
 Usar **DTOs** (Data Transfer Objects) para desacoplar el modelo de persistencia de la API.
 
-### Consecuencias
+### **Acción**
+- Crear DTOs que representen los datos que se intercambian entre el frontend y el backend.
+- No exponer las entidades JPA directamente en los controladores.
+
+### **Consecuencias**
 **Positivas**:
 - Se mejora la seguridad y la flexibilidad del sistema.
 - Facilita la transformación de datos entre capas.
@@ -56,18 +63,22 @@ Usar **DTOs** (Data Transfer Objects) para desacoplar el modelo de persistencia 
 
 ---
 
-## ADR-003: Manejo global de excepciones
+## **ADR-003: Manejo global de excepciones**
 
-### Estado
+### **Estado**
 Propuesto
 
-### Contexto
+### **Contexto**
 El manejo de errores está disperso entre los controladores.
 
-### Decisión
+### **Decisión**
 Centralizar el manejo de excepciones utilizando `@ControllerAdvice` para manejar todas las excepciones a nivel global.
 
-### Consecuencias
+### **Acción**
+- Implementar un controlador global de excepciones usando `@ControllerAdvice`.
+- Definir excepciones personalizadas y estructurar las respuestas de error.
+
+### **Consecuencias**
 **Positivas**:
 - Mayor consistencia en la respuesta a errores.
 - Facilita la gestión de excepciones globales.
@@ -77,39 +88,49 @@ Centralizar el manejo de excepciones utilizando `@ControllerAdvice` para manejar
 
 ---
 
-## ADR-004: Externalización de la configuración sensible
+## **ADR-004: Desacoplamiento de lógica del controlador a la capa de servicio**
 
-### Estado
-Propuesto
+### **Estado**
+Implementado
 
-### Contexto
-Las configuraciones sensibles (como contraseñas y secretos) están directamente en el archivo `application.properties`, lo que representa un riesgo de seguridad.
+### **Contexto**
+La lógica de negocio estaba directamente dentro de los controladores, lo que dificultaba el mantenimiento y las pruebas unitarias.
 
-### Decisión
-Usar **variables de entorno** para la configuración sensible y **no almacenarlas directamente en el código**.
+### **Decisión**
+Mover la lógica de negocio de los controladores a la capa de servicio.
 
-### Consecuencias
+### **Acción**
+- Crear servicios para manejar toda la lógica de negocio.
+- Los controladores solo deben delegar la lógica de negocio a los servicios.
+- Usar los DTOs para las interacciones entre el controlador y el servicio.
+
+### **Consecuencias**
 **Positivas**:
-- Mejora la seguridad al mantener los secretos fuera del código.
-- Facilita la gestión de configuraciones en diferentes entornos.
+- Mejora la mantenibilidad y la escalabilidad.
+- Facilita las pruebas unitarias.
+- Desacopla las responsabilidades de negocio de la capa de presentación.
 
 **Negativas**:
-- Necesidad de gestionar las variables de entorno.
+- Requiere una refactorización de los controladores.
 
 ---
 
-## ADR-005: Uso de JWT para autenticación
+## **ADR-005: Uso de JWT para autenticación**
 
-### Estado
-Propuesto
+### **Estado**
+Cumplido
 
-### Contexto
+### **Contexto**
 El sistema necesita un mecanismo de autenticación eficiente y escalable.
 
-### Decisión
+### **Decisión**
 Usar **JWT (JSON Web Tokens)** para la autenticación de usuarios de manera **stateless**.
 
-### Consecuencias
+### **Acción**
+- Implementar un sistema de **autenticación basado en JWT** en el backend.
+- Configurar filtros de seguridad para verificar los tokens en cada solicitud.
+
+### **Consecuencias**
 **Positivas**:
 - Mejora la escalabilidad al no depender de sesiones de servidor.
 - Proporciona una solución estándar y segura.
@@ -119,18 +140,22 @@ Usar **JWT (JSON Web Tokens)** para la autenticación de usuarios de manera **st
 
 ---
 
-## ADR-006: Uso de Spring Data JPA
+## **ADR-006: Uso de Spring Data JPA**
 
-### Estado
-Propuesto
+### **Estado**
+Cumplido
 
-### Contexto
+### **Contexto**
 Se están utilizando consultas manuales en la capa de persistencia.
 
-### Decisión
+### **Decisión**
 Usar **Spring Data JPA** para gestionar el acceso a datos, aprovechando sus repositorios y la implementación automática de consultas.
 
-### Consecuencias
+### **Acción**
+- Usar **JpaRepository** o **CrudRepository** para manejar operaciones CRUD.
+- Evitar consultas SQL manuales, aprovechando la implementación automática de Spring Data JPA.
+
+### **Consecuencias**
 **Positivas**:
 - Simplifica la capa de persistencia.
 - Mejora la mantenibilidad y reduce el código repetido.
@@ -140,18 +165,22 @@ Usar **Spring Data JPA** para gestionar el acceso a datos, aprovechando sus repo
 
 ---
 
-## ADR-007: Separación de configuración de seguridad
+## **ADR-007: Separación de configuración de seguridad**
 
-### Estado
-Propuesto
+### **Estado**
+Cumplido
 
-### Contexto
-La configuración de seguridad está mezclada con otras configuraciones del sistema.
+### **Contexto**
+La configuración de seguridad estaba mezclada con otras configuraciones del sistema.
 
-### Decisión
+### **Decisión**
 Crear un **paquete de configuración de seguridad** separado para manejar todas las configuraciones relacionadas con JWT, roles y filtros de seguridad.
 
-### Consecuencias
+### **Acción**
+- Implementar una clase **`SecurityConfig`** que centralice todas las configuraciones de seguridad del sistema.
+- Crear filtros para la validación de JWT y roles de usuario.
+
+### **Consecuencias**
 **Positivas**:
 - Mejora la organización y claridad del código.
 - Facilita las futuras modificaciones de seguridad.
@@ -161,60 +190,21 @@ Crear un **paquete de configuración de seguridad** separado para manejar todas 
 
 ---
 
-## ADR-008: Uso de Docker para servicios de infraestructura
+## **ADR-010: Implementación de validaciones en DTO con Bean Validation**
 
-### Estado
-Propuesto
+### **Estado**
+Cumplido
 
-### Contexto
-El proyecto debe ser fácilmente reproducible en diferentes entornos (desarrollo, testing, producción).
-
-### Decisión
-Usar **Docker** para manejar servicios de infraestructura como **PostgreSQL**.
-
-### Consecuencias
-**Positivas**:
-- Facilita la creación de entornos consistentes.
-- Evita la necesidad de configurar manualmente PostgreSQL.
-
-**Negativas**:
-- Puede aumentar la complejidad de la infraestructura al integrar más servicios.
-
----
-
-## ADR-009: Definición de una estructura modular por dominio
-
-### Estado
-Propuesto
-
-### Contexto
-El proyecto tiene una estructura plana en la que todas las clases están dentro del mismo paquete, lo que hace difícil la expansión y escalabilidad.
-
-### Decisión
-Implementar una estructura **modular por dominio**, donde cada módulo tiene sus propios controladores, servicios, repositorios y entidades.
-
-### Consecuencias
-**Positivas**:
-- Mejor organización y modularización del código.
-- Facilita el mantenimiento y la escalabilidad del sistema.
-
-**Negativas**:
-- Requiere más esfuerzo para refactorizar el código y mover las clases existentes.
-
----
-
-## ADR-010: Implementación de validaciones en DTO con Bean Validation
-
-### Estado
-Propuesto
-
-### Contexto
+### **Contexto**
 El sistema no valida adecuadamente los datos entrantes a través de la API, lo que puede llevar a errores inesperados.
 
-### Decisión
+### **Decisión**
 Usar **Bean Validation** en los DTOs para asegurar que los datos recibidos en las solicitudes cumplan con los requisitos esperados.
 
-### Consecuencias
+### **Acción**
+- Usar anotaciones como `@NotNull`, `@Size`, `@Email`, etc., en los DTOs para validar los datos entrantes.
+
+### **Consecuencias**
 **Positivas**:
 - Mejora la confiabilidad de las entradas de datos.
 - Facilita la gestión de errores de validación.
@@ -224,7 +214,13 @@ Usar **Bean Validation** en los DTOs para asegurar que los datos recibidos en la
 
 ---
 
-### Conclusión
+### **Conclusión**
 
-Las decisiones arquitectónicas descritas en este documento buscan mejorar la escalabilidad, mantenibilidad y seguridad del sistema **ERP Iglesias** mediante la adopción de buenas prácticas de desarrollo y la implementación de soluciones estándar.
-
+- **ADR-001**: Implementada la **arquitectura en capas**.
+- **ADR-002**: **DTOs** implementados para desacoplar la persistencia de la capa de presentación.
+- **ADR-003**: **Manejo global de excepciones** propuesto, aún por implementar con `@ControllerAdvice`.
+- **ADR-004**: **Desacoplamiento de la lógica de negocio** a la capa de servicio implementado.
+- **ADR-005**: **Autenticación JWT** implementada.
+- **ADR-006**: **Spring Data JPA** implementado para el acceso a datos.
+- **ADR-007**: **Configuración de seguridad separada** implementada con `SecurityConfig`.
+- **ADR-010**: **Validaciones en DTO con Bean Validation** implementadas.

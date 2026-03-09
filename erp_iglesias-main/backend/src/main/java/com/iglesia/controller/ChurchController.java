@@ -1,56 +1,31 @@
 package com.iglesia.controller;
 
-import com.iglesia.model.Church;
-import com.iglesia.repository.ChurchRepository;
-import jakarta.validation.constraints.NotBlank;
-import org.springframework.http.HttpStatus;
+import com.iglesia.dtos.request.ChurchRequest;
+import com.iglesia.dtos.response.ChurchResponse;
+import com.iglesia.service.ChurchService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/api/church")
 public class ChurchController {
-    private final ChurchRepository churchRepository;
 
-    public ChurchController(ChurchRepository churchRepository) {
-        this.churchRepository = churchRepository;
+    private final ChurchService churchService;
+
+    @Autowired
+    public ChurchController(ChurchService churchService) {
+        this.churchService = churchService;
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ChurchResponse create(@RequestBody ChurchRequest request) {
-        if (churchRepository.count() > 0) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Ya existe una iglesia registrada");
-        }
-        Church church = new Church();
-        church.setName(request.name());
-        church.setAddress(request.address());
-        churchRepository.save(church);
-        return ChurchResponse.from(church);
+        return churchService.createChurch(request);
     }
 
     @GetMapping
     public ChurchResponse get() {
-        return churchRepository.findAll()
-            .stream()
-            .findFirst()
-            .map(ChurchResponse::from)
-            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No hay iglesia registrada"));
-    }
-
-    public record ChurchRequest(
-        @NotBlank String name,
-        String address
-    ) {}
-
-    public record ChurchResponse(
-        Long id,
-        String name,
-        String address
-    ) {
-        public static ChurchResponse from(Church church) {
-            return new ChurchResponse(church.getId(), church.getName(), church.getAddress());
-        }
+        return churchService.getChurch();
     }
 }
