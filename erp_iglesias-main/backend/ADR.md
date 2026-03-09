@@ -1,8 +1,8 @@
 # ADR - Backend Architecture Decisions
 
 ## Estado
-Propuestos 3  
-Implementados 6  
+Propuestos 2 
+Implementados 7
 Parcialmente implementados 1
 
 ## Contexto
@@ -240,7 +240,7 @@ Usar **Bean Validation** en los DTOs y aplicar la validación automáticamente e
 ## **ADR-009: Transaccionalidad en operaciones críticas del dominio**
 
 ### **Estado**
-Propuesto
+Implementado
 
 ### **Contexto**
 Existen operaciones del dominio que involucran múltiples pasos de persistencia, por ejemplo la creación de inscripciones u ofrendas junto con sus pagos, y la confirmación de pagos con actualización del estado del negocio. Actualmente no se observa una estrategia transaccional explícita.

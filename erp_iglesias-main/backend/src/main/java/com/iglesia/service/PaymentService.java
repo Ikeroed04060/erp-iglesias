@@ -12,6 +12,7 @@ import com.iglesia.model.enums.PaymentType;
 import com.iglesia.repository.EnrollmentRepository;
 import com.iglesia.repository.OfferingRepository;
 import com.iglesia.repository.PaymentRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
@@ -40,6 +41,7 @@ public class PaymentService {
     }
 
     // Confirmar pago
+    @Transactional
     public PaymentResponse confirmPayment(Long id) {
         Payment payment = paymentRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pago no encontrado"));
@@ -63,6 +65,7 @@ public class PaymentService {
     }
 
     // Marcar pago como fallido
+    @Transactional
     public PaymentResponse failPayment(Long id) {
         Payment payment = paymentRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pago no encontrado"));
@@ -79,6 +82,7 @@ public class PaymentService {
     }
 
     // Reintentar pago fallido
+    @Transactional
     public PaymentResponse retryPayment(Long id) {
         Payment payment = paymentRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pago no encontrado"));

@@ -12,6 +12,7 @@ import com.iglesia.repository.ChurchRepository;
 import com.iglesia.repository.OfferingRepository;
 import com.iglesia.repository.PaymentRepository;
 import com.iglesia.repository.PersonRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
@@ -37,6 +38,7 @@ public class OfferingService {
         this.churchRepository = churchRepository;
     }
 
+    @Transactional
     public OfferingResponse createOffering(OfferingRequest request) {
         Church church = requireChurch();
         Person person = personRepository.findById(request.personId())

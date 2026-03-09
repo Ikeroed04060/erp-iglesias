@@ -6,6 +6,7 @@ import com.iglesia.model.*;
 import com.iglesia.model.enums.EnrollmentStatus;
 import com.iglesia.model.enums.PaymentType;
 import com.iglesia.repository.*;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
@@ -33,6 +34,7 @@ public class EnrollmentService {
         this.churchRepository = churchRepository;
     }
 
+    @Transactional
     public EnrollmentResponse createEnrollment(EnrollmentRequest request) {
         Church church = requireChurch();
         Person person = personRepository.findById(request.personId())
