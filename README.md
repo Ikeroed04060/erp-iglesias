@@ -775,7 +775,7 @@ No se identificaron fallos visibles en la interacción del usuario ni rupturas f
 Se valida la visualización del panel principal del sistema.  
 Se evidencia el cargue correcto de indicadores de personas, cursos activos, ofrendas del mes y pagos pendientes.
 
-![alt text](image.png)
+![PF-01 Dashboard](images/image.png)
 
 ---
 
@@ -784,8 +784,8 @@ Se evidencia el cargue correcto de indicadores de personas, cursos activos, ofre
 Se valida el registro de una persona dentro del módulo de personas.  
 La interfaz muestra el formulario, el listado de registros existentes y el mensaje de confirmación **"Persona registrada"**, lo que evidencia que el flujo continúa funcionando correctamente.
 
-![alt text](image-1.png)
-![alt text](image-2.png)
+![PF-02 Personas - formulario](images/image-1.png)
+![PF-02 Personas - confirmación](images/image-2.png)
 
 ---
 
@@ -794,8 +794,9 @@ La interfaz muestra el formulario, el listado de registros existentes y el mensa
 Se valida la creación de un curso desde el módulo correspondiente.  
 Se evidencia que el curso queda almacenado y visible en el listado, junto con su precio y estado activo. También se muestra el mensaje **"Curso creado"**.
 
-![alt text](image-3.png)
-![alt text](image-4.png)
+![PF-03 Cursos - formulario](images/image-3.png)
+![PF-03 Cursos - confirmación](images/image-4.png)
+
 ---
 
 ### PF-04 - Selección de datos para inscripción
@@ -803,7 +804,7 @@ Se evidencia que el curso queda almacenado y visible en el listado, junto con su
 Se valida el comportamiento del formulario de inscripciones al cargar correctamente las personas disponibles para asignación.  
 Esta evidencia confirma que la integración entre datos de personas y cursos sigue operando con normalidad.
 
-![alt text](image-5.png)
+![PF-04 Inscripciones - selección](images/image-5.png)
 
 ---
 
@@ -812,7 +813,7 @@ Esta evidencia confirma que la integración entre datos de personas y cursos sig
 Se valida la creación de una inscripción.  
 La evidencia muestra que el sistema registra la inscripción y la deja visible en el listado con estado **PENDIENTE** y pago **INICIADO**, además de mostrar el mensaje **"Inscripción creada"**.
 
-![alt text](image-6.png)
+![PF-05 Inscripción creada](images/image-6.png)
 
 ---
 
@@ -821,7 +822,8 @@ La evidencia muestra que el sistema registra la inscripción y la deja visible e
 Se valida la carga y el diligenciamiento del formulario de ofrendas.  
 La interfaz permite seleccionar persona, ingresar monto y concepto, manteniendo la funcionalidad esperada del módulo.
 
-![alt text](image-7.png)
+![PF-06 Ofrendas - formulario](images/image-7.png)
+
 ---
 
 ### PF-07 - Creación de ofrenda
@@ -829,7 +831,7 @@ La interfaz permite seleccionar persona, ingresar monto y concepto, manteniendo 
 Se valida el registro exitoso de una ofrenda.  
 La evidencia muestra que el sistema agrega el nuevo registro al listado, conserva el estado **PENDIENTE**, genera pago asociado en estado **INICIADO** y presenta el mensaje **"Ofrenda creada"**.
 
-![alt text](image-8.png)
+![PF-07 Ofrenda creada](images/image-8.png)
 
 ---
 
@@ -838,7 +840,8 @@ La evidencia muestra que el sistema agrega el nuevo registro al listado, conserv
 Se valida la visualización del módulo de pagos.  
 La tabla presenta correctamente los pagos generados por inscripciones y ofrendas, con su tipo, monto, estado, intentos y acciones disponibles.
 
-![alt text](image-9.png)
+![PF-08 Pagos](images/image-9.png)
+
 ---
 
 ## Conclusión de pruebas
