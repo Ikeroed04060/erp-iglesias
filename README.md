@@ -1,5 +1,9 @@
 # README - Diagnóstico funcional y arquitectónico del proyecto `erp_iglesias`
 
+## Presentado Por:
+- Iker Edwin Santiago Solano Ruiz.
+- William Eduardo Almario Mosquera.
+
 ## 1. Descripción general
 
 Este documento presenta el análisis funcional y arquitectónico del proyecto **IglesiAdmin**, una aplicación web orientada a la **gestión parroquial**. El sistema permite administrar la iglesia, usuarios, personas, cursos, inscripciones, ofrendas y pagos, con autenticación basada en JWT.
